@@ -14,6 +14,10 @@ public class ReportRequest {
 	public String toString() {
 		return "ReportRequest [requestParts=" + requestParts + "]";
 	}
+
+	public List<ReportRequestPart> getRequestParts() {
+		return requestParts;
+	}
 	
 	
 	

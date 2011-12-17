@@ -12,7 +12,7 @@ public class DummyReportPartGenerator implements ReportPartGenerator{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		return "Report for " + reportRequestPart.getSectionName();
+		return "Report for " + reportRequestPart.getSection();
 	}
 
 }

@@ -1,27 +1,29 @@
 package org.bk.sisample.types;
 
 public class ReportRequestPart {
-	private final String sectionName;
+	private final Section section;
 	private final Context context;
 
-	public ReportRequestPart(String sectionName, Context context) {
-		super();
-		this.sectionName = sectionName;
+	public ReportRequestPart(Section section, Context context) {
+		this.section = section;
 		this.context = context;
 	}
 
-	public String getSectionName() {
-		return sectionName;
-	}
 
 	public Context getContext() {
 		return context;
 	}
 
+
+	public Section getSection() {
+    	return section;
+    }
+
+
 	@Override
-	public String toString() {
-		return "ReportRequestPart [sectionName=" + sectionName + ", context="
-				+ context + "]";
-	}
+    public String toString() {
+	    return "ReportRequestPart [section=" + section + ", context=" + context + "]";
+    }
+
 
 }
