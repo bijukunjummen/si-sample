@@ -1,15 +1,15 @@
 package org.bk.sisample.types;
 
-import java.util.Map;
+import java.util.List;
 
 public class Report {
-	private final Map<Section, String> sectionReports;
+	private final List<ReportPart> sectionReports;
 	
-	public Report(Map<Section, String> sectionReports){
+	public Report(List<ReportPart> sectionReports){
 		this.sectionReports = sectionReports; 
 	}
 
-	public Map<Section, String> getSectionReports() {
+	public List<ReportPart> getSectionReports() {
     	return sectionReports;
     }	
 }

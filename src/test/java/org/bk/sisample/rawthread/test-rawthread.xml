@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean name="reportPartGenerator" class="org.bk.sisamples.processors.DummyReportPartGenerator"></bean>
-	<bean name="sequentialReportGenerator" class="org.bk.sisample.primitivethread.SequentialReportGenerator">
+	<bean name="rawThreadBasedReportGenerator" class="org.bk.sisample.rawthread.RawThreadBasedReportGenerator">
 		<property name="reportPartGenerator" ref="reportPartGenerator"/>
 	</bean>
 

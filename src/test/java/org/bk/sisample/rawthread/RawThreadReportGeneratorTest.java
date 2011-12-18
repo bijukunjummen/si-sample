@@ -1,4 +1,4 @@
-package org.bk.sisample.primitivethread;
+package org.bk.sisample.rawthread;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -23,21 +23,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"test-primitivethread.xml"})
-public class SequentialReportGeneratorTest {
+@ContextConfiguration(locations={"test-rawthread.xml"})
+public class RawThreadReportGeneratorTest {
 	
-	@Resource private SequentialReportGenerator reportGenerator;
+	@Resource private RawThreadBasedReportGenerator reportGenerator;
 	
-	private static final Logger logger = LoggerFactory.getLogger(SequentialReportGeneratorTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(RawThreadReportGeneratorTest.class);
 	
 	@Test
-	public void testSequentialReportGeneratorTime(){
+	public void testRawThreadReportGeneratorTime(){
 		long startTime = System.currentTimeMillis();
 		Report report = this.reportGenerator.generateReport(generateReportRequest());
 		long timeForReport = System.currentTimeMillis()-startTime;
 		
 		assertThat(report.getSectionReports().size(), is (5));
-		logger.error(String.format("Sequential Report Generator : %s ms", timeForReport));
+
+		logger.error(String.format("Raw Thread Based Report Generator : %s ms", timeForReport));
 	}
 	
 	 

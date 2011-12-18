@@ -21,6 +21,6 @@ public class DummyReportPartGeneratorTest {
 		ReportRequestPart part1 = new ReportRequestPart(Section.SECTION1, context);
 
 		ReportPartGenerator reportGenerator = new DummyReportPartGenerator();
-		assertThat(reportGenerator.generateReportPart(part1), is("Report for SECTION1"));
+		assertThat(reportGenerator.generateReportPart(part1).getReportPartDetail(), is("Report for SECTION1"));
 	}
 }
