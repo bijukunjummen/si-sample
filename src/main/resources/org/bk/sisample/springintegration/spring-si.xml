@@ -9,32 +9,37 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <int:channel id="report.partsChannel"/>
+    <int:channel id="report.reportChannel"/>
+    <int:channel id="report.partReportChannel">
+        <int:queue capacity="50"/>
+    </int:channel>  
+    <int:channel id="report.joinPartsChannel"/>
+
+
+	<int:splitter id="splitter" ref="reportsPartSplitter" method="split" 
+	       input-channel="report.partsChannel" output-channel="report.partReportChannel"/>
+    
+    <task:executor id="reportPartGeneratorExecutor" pool-size="10" queue-capacity="50" />
+    
+	<int:service-activator id="reportsPartServiceActivator"  ref="reportPartReportGenerator" method="generateReportPart" 
+	           input-channel="report.partReportChannel" output-channel="report.joinPartsChannel">
+	   <int:poller task-executor="reportPartGeneratorExecutor" fixed-delay="500">
+	   </int:poller>
+	</int:service-activator>
+
+    <int:aggregator ref="reportAggregator" method="aggregate" 
+            input-channel="report.joinPartsChannel" output-channel="report.reportChannel" ></int:aggregator>	
+
+    <int:gateway id="reportGeneratorGateway" service-interface="org.bk.sisample.springintegration.ReportGeneratorGateway" 
+           default-request-channel="report.partsChannel" default-reply-channel="report.reportChannel"/>
+    
     <bean name="reportsPartSplitter" class="org.bk.sisample.springintegration.processors.DefaultReportRequestSplitter"></bean>
     <bean name="reportPartReportGenerator" class="org.bk.sisample.processors.DummyReportPartGenerator"/>
     <bean name="reportAggregator" class="org.bk.sisample.springintegration.processors.DefaultReportAggregator"/>
     <bean name="reportGenerator" class="org.bk.sisample.springintegration.SpringIntegrationBasedReportGenerator"/>
-	
-	<int:channel id="report.partsChannel"/>
-	<int:channel id="report.reportChannel"/>
-	<int:channel id="report.partReportChannel">
-		<int:queue/>
-	</int:channel>	
+    
 
-    <int:channel id="report.joinPartsChannel">
-    </int:channel>  
 
-	
- 	<task:executor id="reportPartGeneratorExecutor" pool-size="10" queue-capacity="100" />
- 	
- 	<task:executor id="statsDispatcherPool" pool-size="5" queue-capacity="100" />
-	
-	<int:gateway id="reportGeneratorGateway" service-interface="org.bk.sisample.springintegration.ReportGeneratorGateway" default-request-channel="report.partsChannel" default-reply-channel="report.reportChannel"/>
-	
-	<int:splitter id="splitter" ref="reportsPartSplitter" method="split" input-channel="report.partsChannel" output-channel="report.partReportChannel"/>
 
-	<int:service-activator id="reportsPartServiceActivator"  ref="reportPartReportGenerator" method="generateReportPart" input-channel="report.partReportChannel" output-channel="report.joinPartsChannel">
-	   <int:poller task-executor="reportPartGeneratorExecutor" fixed-delay="500"></int:poller>
-	</int:service-activator>
-
-    <int:aggregator ref="reportAggregator" method="aggregate" input-channel="report.joinPartsChannel" output-channel="report.reportChannel" ></int:aggregator>	
 </beans>

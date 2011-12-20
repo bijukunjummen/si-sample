@@ -44,11 +44,9 @@ public class ExecutorsBasedReportGenerator implements ReportGenerator {
             throw new RuntimeException(e);
         }
         return new Report(reportParts);
-
     }
 
     public void setReportPartGenerator(ReportPartGenerator reportPartGenerator) {
         this.reportPartGenerator = reportPartGenerator;
     }
-
 }

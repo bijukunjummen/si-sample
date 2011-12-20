@@ -22,7 +22,5 @@ public class ReportPartRequestRunnable implements Runnable {
 	public ReportPart getReportPart() {
     	return reportPart;
     }
-	
-	
 }
 	
