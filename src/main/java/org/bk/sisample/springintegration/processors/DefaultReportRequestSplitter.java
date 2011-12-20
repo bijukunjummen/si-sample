@@ -1,4 +1,4 @@
-package org.bk.sisamples.processors;
+package org.bk.sisample.springintegration.processors;
 
 import java.util.List;
 

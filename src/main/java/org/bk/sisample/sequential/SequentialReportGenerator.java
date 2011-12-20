@@ -3,12 +3,12 @@ package org.bk.sisample.sequential;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bk.sisample.processors.ReportGenerator;
+import org.bk.sisample.processors.ReportPartGenerator;
 import org.bk.sisample.types.Report;
 import org.bk.sisample.types.ReportPart;
 import org.bk.sisample.types.ReportRequest;
 import org.bk.sisample.types.ReportRequestPart;
-import org.bk.sisamples.processors.ReportGenerator;
-import org.bk.sisamples.processors.ReportPartGenerator;
 
 public class SequentialReportGenerator implements ReportGenerator {
 	

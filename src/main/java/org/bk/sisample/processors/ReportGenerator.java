@@ -1,4 +1,4 @@
-package org.bk.sisamples.processors;
+package org.bk.sisample.processors;
 
 import org.bk.sisample.types.Report;
 import org.bk.sisample.types.ReportRequest;

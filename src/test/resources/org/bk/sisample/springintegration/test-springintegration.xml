@@ -3,9 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean name="reportPartGenerator" class="org.bk.sisample.processors.DummyReportPartGenerator"></bean>
-	<bean name="rawThreadBasedReportGenerator" class="org.bk.sisample.rawthread.RawThreadBasedReportGenerator">
-		<property name="reportPartGenerator" ref="reportPartGenerator"/>
-	</bean>
+    <import resource="classpath:/org/bk/sisample/springintegration/spring-si.xml"/>
 
 </beans>

@@ -2,9 +2,9 @@ package org.bk.sisample.executors;
 
 import java.util.concurrent.Callable;
 
+import org.bk.sisample.processors.ReportPartGenerator;
 import org.bk.sisample.types.ReportPart;
 import org.bk.sisample.types.ReportRequestPart;
-import org.bk.sisamples.processors.ReportPartGenerator;
 
 public class ReportPartRequestCallable implements Callable<ReportPart> {
 	private final ReportRequestPart reportRequestPart;
