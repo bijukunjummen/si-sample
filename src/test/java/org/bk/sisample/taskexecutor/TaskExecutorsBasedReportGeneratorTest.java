@@ -1,4 +1,4 @@
-package org.bk.sisample.springintegration;
+package org.bk.sisample.taskexecutor;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -15,22 +15,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"test-springintegration.xml"})
-public class SpringIntegrationBasedReportGeneratorTest {
+@ContextConfiguration(locations={"test-taskexecutor.xml"})
+public class TaskExecutorsBasedReportGeneratorTest {
 	
-	@Resource private SpringIntegrationBasedReportGenerator reportGenerator;
+	@Resource private TaskExecutorsBasedReportGenerator reportGenerator;
 	
-	private static final Logger logger = LoggerFactory.getLogger(SpringIntegrationBasedReportGeneratorTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(TaskExecutorsBasedReportGeneratorTest.class);
 	
 	@Test
-	public void testSpringIntegrationBasedReportGeneratorTime(){
+	public void testExecutorsBasedReportGeneratorTime(){
 		long startTime = System.currentTimeMillis();
 		Report report = this.reportGenerator.generateReport(FixtureGenerator.generateReportRequest());
 		long timeForReport = System.currentTimeMillis()-startTime;
 		
 		assertThat(report.getSectionReports().size(), is (5));
 
-		logger.error(String.format("Spring Integration Based Report Generator : %s ms", timeForReport));
+		logger.error(String.format("Executors Based Report Generator : %s ms", timeForReport));
 	}
 	
 	 

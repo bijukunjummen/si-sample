@@ -1,10 +1,9 @@
-package org.bk.sisample.executors;
+package org.bk.sisample.taskexecutor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.bk.sisample.processors.ReportGenerator;
@@ -15,20 +14,23 @@ import org.bk.sisample.types.ReportRequest;
 import org.bk.sisample.types.ReportRequestPart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ExecutorsBasedReportGenerator implements ReportGenerator {
-    private static final Logger logger = LoggerFactory.getLogger(ExecutorsBasedReportGenerator.class);
+public class TaskExecutorsBasedReportGenerator implements ReportGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(TaskExecutorsBasedReportGenerator.class);
 
-    private ReportPartGenerator reportPartGenerator;
+    @Autowired private ReportPartGenerator reportPartGenerator;
 
-    private ExecutorService executors = Executors.newFixedThreadPool(10);
+    @Autowired private ExecutorService executors;
 
     @Override
     public Report generateReport(ReportRequest reportRequest) {
         List<Callable<ReportPart>> tasks = new ArrayList<Callable<ReportPart>>();
         List<ReportRequestPart> reportRequestParts = reportRequest.getRequestParts();
         for (ReportRequestPart reportRequestPart : reportRequestParts) {
-            tasks.add(new ReportPartRequestCallable(reportRequestPart, reportPartGenerator));
+        	ReportPartRequestCallable reportPartRequestCallable = new ReportPartRequestCallable(); 
+        	reportPartRequestCallable.setReportRequestPart(reportRequestPart);
+            tasks.add(reportPartRequestCallable);
         }
 
         List<Future<ReportPart>> responseForReportPartList;
@@ -49,4 +51,9 @@ public class ExecutorsBasedReportGenerator implements ReportGenerator {
     public void setReportPartGenerator(ReportPartGenerator reportPartGenerator) {
         this.reportPartGenerator = reportPartGenerator;
     }
+
+	public void setExecutors(ExecutorService executors) {
+		this.executors = executors;
+	}
+    
 }
